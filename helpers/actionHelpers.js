@@ -2,7 +2,8 @@ const db = require('../dbConfig.js')
 
 module.exports = {
     add,
-    deleteAction
+    deleteAction,
+    updateAction
 }
 
 // async function getById(id) {
@@ -29,4 +30,17 @@ async function deleteAction(id) {
     return count = await db('actions')
         .where({id: id})
         .del()
+}
+
+async function updateAction(action, id) {
+    const count = await db('actions')
+        .where({id: id})
+        .update(action)
+    if(count > 0) {
+        return updatedAction = await db('actions')
+            .where({id: id})
+            .first()
+    } else {
+        return false
+    }
 }

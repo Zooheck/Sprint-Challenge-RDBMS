@@ -16,6 +16,22 @@ router.post('/', async (req, res) => {
     }
 })
 
+router.put('/:id', async (req, res) => {
+    if (!req.body.notes || !req.body.description) {
+        return res.status(404).json({message: 'You must include "notes" and "description"'})
+    }
+    try {
+        const newAction = await ActionFuncs.updateAction(req.body, req.params.id)
+        if (newAction === false) {
+            res.status(404).json({message: 'Action not found'})
+        } else {
+            res.status(200).json(newAction)
+        }
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
 router.delete('/:id', async (req, res) => {
     try {
         const count = await ActionFuncs.deleteAction(req.params.id)
