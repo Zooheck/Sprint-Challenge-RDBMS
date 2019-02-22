@@ -13,6 +13,9 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
+    if (!req.body.name || !req.body.description) {
+        return res.status(404).json({ message: 'Your project must include a name and description.'})
+    }
     const newProject = await ProjectFuncs.add(req.body)
 
     try {
