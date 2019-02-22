@@ -2,10 +2,19 @@
 exports.up = function(knex, Promise) {
     tbl.increments();
 
-    tbl.string('name', 128).notNullable().unique();
 
     tbl
-    .text('description')
+    .integer('project_id')
+    .unsigned()
+    .notNullable()
+    .references('id')
+    .inTable('projects')
+    .onDelete('NO ACTION')
+    .onUpdate('CASCADE')
+    tbl.string('description', 128).notNullable();
+
+    tbl
+    .text('notes')
     .notNullable()
 
     tbl.boolean('completed').notNullable().defaultTo(false)
