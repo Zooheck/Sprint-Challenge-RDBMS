@@ -3,8 +3,8 @@ const router = express.Router();
 
 const ProjectFuncs = require('../helpers/projectHelpers.js')
 
-router.get('/', async (req, res) => {
-    const projects = await ProjectFuncs.get();
+router.get('/:id', async (req, res) => {
+    const projects = await ProjectFuncs.getById(req.params.id);
     try {
         res.status(200).json(projects)
     } catch (error) {
