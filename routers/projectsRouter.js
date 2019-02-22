@@ -8,7 +8,17 @@ router.get('/:id', async (req, res) => {
     try {
         res.status(200).json(projects)
     } catch (error) {
-        res.status(500).json({message: 'Error retrieving projects'})
+        res.status(500).json({message: 'Error retrieving project'})
+    }
+})
+
+router.post('/', async (req, res) => {
+    const newProject = await ProjectFuncs.add(req.body)
+
+    try {
+        res.status(201).json(newProject)
+    } catch (error) {
+        res.status(500).json({ message: 'Error adding project'})
     }
 })
 module.exports = router;

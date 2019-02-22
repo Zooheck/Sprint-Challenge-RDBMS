@@ -2,7 +2,8 @@ const db = require('../dbConfig.js')
 
 module.exports = {
     get,
-    getById
+    getById,
+    add
 }
 
 function get() {
@@ -18,4 +19,12 @@ async function getById(id) {
         .where('a.project_id', id)
         .orderBy('a.id')
     return { project, actions }
+}
+
+function add(project) {
+    return db('projects')
+    .insert(project)
+    .then(ids => {
+        return getById(ids[0]);
+    })
 }
