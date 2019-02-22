@@ -15,4 +15,18 @@ router.post('/', async (req, res) => {
         res.status(500).json({ message: 'Error adding project'})
     }
 })
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const count = await ActionFuncs.deleteAction(req.params.id)
+
+        if(count > 0) {
+            res.status(204).end()
+        } else {
+            res.status(404).json({message: 'Action not found'})
+        }
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
 module.exports = router;

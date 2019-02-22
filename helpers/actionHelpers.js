@@ -1,7 +1,8 @@
 const db = require('../dbConfig.js')
 
 module.exports = {
-    add
+    add,
+    deleteAction
 }
 
 // async function getById(id) {
@@ -22,4 +23,10 @@ function add(action) {
         .then(ids => {
             return getById(ids[0]);
         })
+}
+
+async function deleteAction(id) {
+    return count = await db('actions')
+        .where({id: id})
+        .del()
 }
